@@ -40,4 +40,6 @@ ctest --test-dir cmake-build-debug --output-on-failure
 ```bash
 ./cmake-build-debug/Algorithmic_Trading_Backtester
 ```
+## Documentation
+[Architecture Plan](./docs/plan/ARCHITECTUREPLAN.md)
 
