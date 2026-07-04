@@ -1,0 +1,29 @@
+name: Notify Discord on merge to master
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+
+jobs:
+  notify:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Discord message
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_PR_CLOSE }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          MERGED_BY: ${{ github.event.pull_request.merged_by.login }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d "{
+              \"username\": \"GitHub Integration\",
+              \"content\": \"✅ Commit merged to master in **${REPO}**\n**${PR_TITLE}**\nAuthor: ${PR_AUTHOR}\nMerged by: ${MERGED_BY}\nMerge commit: \`${MERGE_SHA}\`\n${PR_URL}\"
+            }" \
+            "$DISCORD_WEBHOOK"

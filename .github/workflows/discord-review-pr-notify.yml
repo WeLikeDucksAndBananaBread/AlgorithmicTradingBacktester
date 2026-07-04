@@ -1,0 +1,21 @@
+name: Notify Discord on review request
+
+on:
+  pull_request:
+    types: [review_requested]
+    branches: [master]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord message
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_REVIEW_REQUEST }}
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d "{
+              \"username\": \"GitHub Integration\",
+              \"content\": \"👀 Review requested for **${{ github.event.pull_request.title }}**\nAuthor: ${{ github.event.pull_request.user.login }}\nReviewer: ${{ github.event.requested_reviewer.login }}\n${{ github.event.pull_request.html_url }}\"
+            }" \
+            "$DISCORD_WEBHOOK"
