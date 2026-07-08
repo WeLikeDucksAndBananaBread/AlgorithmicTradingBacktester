@@ -1,0 +1,30 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ninja-build libgl1-mesa-dev qt6-base-dev qt6-tools-dev
+
+    - name: Configure CMake
+      run: |
+        export Qt6_ROOT=/usr/lib/x86_64-linux-gnu/qt6
+        cmake -S . -B build -G Ninja
+
+    - name: Build
+      run: cmake --build build -- -k 0
+
+    - name: Test
+      run: cmake --build build --target run_tests

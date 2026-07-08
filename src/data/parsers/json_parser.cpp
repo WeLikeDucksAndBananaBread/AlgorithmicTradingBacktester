@@ -1,10 +1,7 @@
 #include "json_parser.h"
 
-namespace backtester {
-namespace data {
+namespace backtester::data {
 
-JsonParser::JsonParser() {}
-JsonParser::~JsonParser() {}
+// Implementation of methods for parsing JSON data will go here.
 
-} // namespace data
-} // namespace backtester
+} // namespace backtester::data

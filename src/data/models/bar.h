@@ -3,8 +3,7 @@
 
 #include <string>
 
-namespace backtester {
-namespace data {
+namespace backtester::data {
 
 struct Bar {
     std::string timestamp;
@@ -15,7 +14,6 @@ struct Bar {
     double volume;
 };
 
-} // namespace data
-} // namespace backtester
+} // namespace backtester::data
 
 #endif // BAR_H

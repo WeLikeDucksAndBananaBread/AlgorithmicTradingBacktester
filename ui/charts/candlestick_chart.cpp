@@ -1,11 +1,13 @@
 #include "candlestick_chart.h"
 
-// #include "qcustomplot.h" // Assuming this will be included later
+#include <QWidget>
 #include <QVBoxLayout>
 
+// #include "qcustomplot.h" // Assuming this will be included later
 class QCustomPlot; // Forward declare again to be safe
 
-CandlestickChart::CandlestickChart(QWidget *parent) : QWidget(parent)
+CandlestickChart::CandlestickChart(QWidget *parent)
+    : QWidget(parent)
 {
     // m_customPlot = new QCustomPlot(this);
     // QVBoxLayout *layout = new QVBoxLayout(this);

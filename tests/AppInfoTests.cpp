@@ -3,7 +3,7 @@
 
 #include "core/AppInfo.h"
 
-int main() {
+auto main() -> int {
     assert(app::applicationName() == QStringLiteral("Algorithmic Trading Backtester"));
     assert(app::windowTitle() == QStringLiteral("Algorithmic Trading Backtester"));
 

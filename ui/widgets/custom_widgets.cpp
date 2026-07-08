@@ -1,6 +1,5 @@
 #include "custom_widgets.h"
 
-SomeCustomWidget::SomeCustomWidget(QWidget *parent) : QWidget(parent)
-{
+#include <QWidget>
 
-}
+SomeCustomWidget::SomeCustomWidget(QWidget* parent) : QWidget(parent) {}

@@ -2,29 +2,20 @@
 #include <QtTest/QtTest>
 #include <QtWidgets>
 
-class CandlestickChartTests : public QObject
-{
-    Q_OBJECT
+class CandlestickChartTests : public QObject {
+  Q_OBJECT
 
-private slots:
-    void initTestCase();
-    void cleanupTestCase();
-    void testChart();
-
+ private slots:
+  void initTestCase();
+  void cleanupTestCase();
+  static void testChart();
 };
 
-void CandlestickChartTests::initTestCase()
-{
-}
+void CandlestickChartTests::initTestCase() {}
 
-void CandlestickChartTests::cleanupTestCase()
-{
-}
+void CandlestickChartTests::cleanupTestCase() {}
 
-void CandlestickChartTests::testChart()
-{
-    QVERIFY(true);
-}
+void CandlestickChartTests::testChart() { QVERIFY(true); }
 
 QTEST_MAIN(CandlestickChartTests)
 #include "CandlestickChartTests.moc"

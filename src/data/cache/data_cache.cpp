@@ -1,11 +1,13 @@
 #include "DataCache.h"
+#include <QObject>
 
-backtester::data::DataCache::DataCache(QObject *parent) : QObject(parent)
+namespace backtester::data {
+
+DataCache::DataCache(QObject *parent) : QObject(parent)
 {
 
 }
 
-backtester::data::DataCache::~DataCache()
-{
+// Implementations for saveData and loadData would go here
 
-}
+} // namespace backtester::data

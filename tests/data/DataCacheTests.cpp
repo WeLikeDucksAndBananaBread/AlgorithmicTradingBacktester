@@ -1,32 +1,26 @@
 #include <QObject>
 #include <QtTest/QtTest>
+
 #include "data/cache/DataCache.h"
 
-using namespace backtester::data;
+using backtester::data::DataCache;
 
-class DataCacheTests : public QObject
-{
-    Q_OBJECT
+class DataCacheTests : public QObject {
+  Q_OBJECT
 
-private slots:
-    void initTestCase();
-    void cleanupTestCase();
-    void testCache();
-
+ private slots:
+  void initTestCase();
+  void cleanupTestCase();
+  static void testCache();
 };
 
-void DataCacheTests::initTestCase()
-{
-}
+void DataCacheTests::initTestCase() {}
 
-void DataCacheTests::cleanupTestCase()
-{
-}
+void DataCacheTests::cleanupTestCase() {}
 
-void DataCacheTests::testCache()
-{
-    DataCache cache;
-    QVERIFY(true); // Replace with actual test
+void DataCacheTests::testCache() {
+  DataCache cache;
+  QVERIFY(true);  // Replace with actual test
 }
 
 QTEST_MAIN(DataCacheTests)

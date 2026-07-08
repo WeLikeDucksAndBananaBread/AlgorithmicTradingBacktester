@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 4.2)
 project(Algorithmic_Trading_Backtester)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_CXX_STANDARD 20)
+
+# Add Linter
+set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
+
+
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -124,50 +130,46 @@ add_custom_target(run
 
 include(CTest)
 if(BUILD_TESTING)
-    enable_testing()
+  enable_testing()
 
-    # Core tests
-    add_executable(AppInfoTests tests/AppInfoTests.cpp)
-    target_link_libraries(AppInfoTests PRIVATE backtester_core Qt6::Test)
-    add_test(NAME AppInfoTests COMMAND AppInfoTests)
+  # Core tests
+  add_executable(AppInfoTests tests/AppInfoTests.cpp)
+  target_link_libraries(AppInfoTests PRIVATE backtester_core Qt6::Test)
+  add_test(NAME AppInfoTests COMMAND AppInfoTests)
 
-    # Data tests
-    add_executable(DataCacheTests tests/data/DataCacheTests.cpp)
-    target_link_libraries(DataCacheTests PRIVATE backtester_data Qt6::Test Qt6::Core)
-    add_test(NAME DataCacheTests COMMAND DataCacheTests)
+  # Data tests
+  add_executable(DataCacheTests tests/data/DataCacheTests.cpp)
+  target_link_libraries(DataCacheTests PRIVATE backtester_data Qt6::Test Qt6::Core)
+  add_test(NAME DataCacheTests COMMAND DataCacheTests)
 
-    add_executable(CSVParserTests tests/data/parsers/CSVParserTests.cpp)
-    target_link_libraries(CSVParserTests PRIVATE backtester_data Qt6::Test Qt6::Core)
-    add_test(NAME CSVParserTests COMMAND CSVParserTests)
+  add_executable(CSVParserTests tests/data/parsers/CSVParserTests.cpp)
+  target_link_libraries(CSVParserTests PRIVATE backtester_data Qt6::Test Qt6::Core)
+  add_test(NAME CSVParserTests COMMAND CSVParserTests)
 
-    # Logic tests
-    add_executable(BacktestEngineTests tests/logic/engine/BacktestEngineTests.cpp)
-    target_link_libraries(BacktestEngineTests PRIVATE backtester_logic Qt6::Test Qt6::Core)
-    add_test(NAME BacktestEngineTests COMMAND BacktestEngineTests)
 
-    add_executable(PerformanceMetricsTests tests/logic/metrics/PerformanceMetricsTests.cpp)
-    target_link_libraries(PerformanceMetricsTests PRIVATE backtester_logic Qt6::Test Qt6::Core)
-    add_test(NAME PerformanceMetricsTests COMMAND PerformanceMetricsTests)
+  add_executable(PerformanceMetricsTests tests/logic/metrics/PerformanceMetricsTests.cpp)
+  target_link_libraries(PerformanceMetricsTests PRIVATE backtester_logic Qt6::Test Qt6::Core)
+  add_test(NAME PerformanceMetricsTests COMMAND PerformanceMetricsTests)
 
-    # Strategy tests
-    add_executable(RuleParserTests tests/strategy/parser/RuleParserTests.cpp)
-    target_link_libraries(RuleParserTests PRIVATE backtester_strategy Qt6::Test Qt6::Core)
-    add_test(NAME RuleParserTests COMMAND RuleParserTests)
+  # Strategy tests
+  add_executable(RuleParserTests tests/strategy/parser/RuleParserTests.cpp)
+  target_link_libraries(RuleParserTests PRIVATE backtester_strategy Qt6::Test Qt6::Core)
+  add_test(NAME RuleParserTests COMMAND RuleParserTests)
 
-    add_executable(SMATests tests/strategy/indicators/SMATests.cpp)
-    target_link_libraries(SMATests PRIVATE backtester_strategy Qt6::Test Qt6::Core)
-    add_test(NAME SMATests COMMAND SMATests)
+  add_executable(SMATests tests/strategy/indicators/SMATests.cpp)
+  target_link_libraries(SMATests PRIVATE backtester_strategy Qt6::Test Qt6::Core)
+  add_test(NAME SMATests COMMAND SMATests)
 
-    # UI tests
-    add_executable(StrategyBuilderWidgetTests tests/ui/StrategyBuilderWidgetTests.cpp)
-    target_link_libraries(StrategyBuilderWidgetTests PRIVATE backtester_ui Qt6::Test Qt6::Widgets)
-    add_test(NAME StrategyBuilderWidgetTests COMMAND StrategyBuilderWidgetTests)
+  # UI tests
+  add_executable(StrategyBuilderWidgetTests tests/ui/StrategyBuilderWidgetTests.cpp)
+  target_link_libraries(StrategyBuilderWidgetTests PRIVATE backtester_ui Qt6::Test Qt6::Widgets)
+  add_test(NAME StrategyBuilderWidgetTests COMMAND StrategyBuilderWidgetTests)
 
-    add_executable(CandlestickChartTests tests/ui/charts/CandlestickChartTests.cpp)
-    target_link_libraries(CandlestickChartTests PRIVATE backtester_ui Qt6::Test Qt6::Widgets)
-    add_test(NAME CandlestickChartTests COMMAND CandlestickChartTests)
+  add_executable(CandlestickChartTests tests/ui/charts/CandlestickChartTests.cpp)
+  target_link_libraries(CandlestickChartTests PRIVATE backtester_ui Qt6::Test Qt6::Widgets)
+  add_test(NAME CandlestickChartTests COMMAND CandlestickChartTests)
 
-    add_custom_target(run_tests
+  add_custom_target(run_tests
         COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )

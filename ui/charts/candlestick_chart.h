@@ -15,7 +15,7 @@ public:
     explicit CandlestickChart(QWidget *parent = nullptr);
 
 private:
-    QCustomPlot* m_customPlot;
+    QCustomPlot* m_customPlot = nullptr;
 };
 
 #endif // CANDLESTICK_CHART_H

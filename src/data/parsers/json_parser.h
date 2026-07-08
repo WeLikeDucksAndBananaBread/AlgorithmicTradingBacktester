@@ -4,17 +4,22 @@
 #include <string>
 #include <vector>
 
-namespace backtester {
-namespace data {
+namespace backtester::data {
 
 class JsonParser {
 public:
-    JsonParser();
-    ~JsonParser();
-    // TODO: Add methods for parsing JSON data
+    JsonParser() = default;
+    ~JsonParser() = default;
+
+    // Explicitly delete copy and move operations
+    JsonParser(const JsonParser&) = delete;
+    auto operator=(const JsonParser&) -> JsonParser& = delete;
+    JsonParser(JsonParser&&) = delete;
+    auto operator=(JsonParser&&) -> JsonParser& = delete;
+
+    // TODO(bence): Add methods for parsing JSON data
 };
 
-} // namespace data
-} // namespace backtester
+} // namespace backtester::data
 
 #endif // JSON_PARSER_H

@@ -1,10 +1,7 @@
 #include "csv_parser.h"
 
-namespace backtester {
-namespace data {
+namespace backtester::data {
 
-CsvParser::CsvParser() {}
-CsvParser::~CsvParser() {}
+// Implementation of methods for parsing CSV data will go here.
 
-} // namespace data
-} // namespace backtester
+} // namespace backtester::data

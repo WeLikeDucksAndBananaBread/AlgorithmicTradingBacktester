@@ -2,11 +2,11 @@
 
 namespace app {
 
-QString applicationName() {
+auto applicationName() -> QString {
     return QStringLiteral("Algorithmic Trading Backtester");
 }
 
-QString windowTitle() {
+auto windowTitle() -> QString {
     return applicationName();
 }
 
