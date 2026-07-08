@@ -8,7 +8,7 @@ This document outlines the high-level features for the C++/Qt-based Algorithmic 
 - **Free APIs**: Tiingo, Alpha Vantage, Stooq, Yahoo Finance.
 - **Local Files**: Ingestion of local `TXT`/`CSV` files formatted like Stooq downloads.
 
-### 1.2 Data Caching & API Rate Limit Prevention
+### 1.2 Data Caching & API Rate Limit Prevention [Discuss later]
 - **Manual Data Fetching**: API requests are not made automatically during a backtest. Users must explicitly trigger a "Fetch & Cache" action for a given asset and timeframe.
 - **Local Data Storage**: Downloaded data is processed and cached locally (e.g., in SQLite or binary format). 
 - **Offline Operations**: All backtesting and charting queries are executed against the local cache, completely avoiding API rate limits during simulations.
