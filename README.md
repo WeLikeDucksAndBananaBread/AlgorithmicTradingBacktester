@@ -1,45 +1,86 @@
-## Status: Work in Progress
-# AlgorithmicTradingBacktester
-Algorithmic Trading Backtester written in C++ which allows you to review how your securities would have performed if you had followed different trading strategies.
+# Algorithmic Trading Backtester
 
-## Structure
+[![Status](https://img.shields.io/badge/status-work_in_progress-yellow.svg)](https://github.com/your-repo/your-project/pulse)
 
-- `src/` — application entry point and core logic
-- `ui/` — Qt UI widgets and windows
-- `tests/` — standalone test executables
+An algorithmic trading backtester written in C++ and Qt that allows you to test and analyze trading strategies against historical market data.
 
-## Build
+## Features
 
-If Qt is not installed in a standard location, point CMake to it with `Qt6_ROOT`:
+- **Visual Strategy Builder**: Create complex trading strategies without writing a single line of code.
+- **Performance Analytics**: Analyze your strategy's performance with key metrics like Sharpe ratio, max drawdown, and equity curves.
+- **Modular Architecture**: Clean, multi-threaded design separating the UI, data handling, and simulation engine.
+- **Cross-Platform**: Built with C++ and Qt for compatibility with Windows, macOS, and Linux.
+
+## Project Structure
+
+The project is organized into several distinct modules:
+
+- `src/`: Contains the core back-end logic, divided into:
+  - `data`: Data parsing and caching.
+  - `logic`: The backtesting engine, event handling, and metrics.
+  - `strategy`: The strategy translator and technical indicators.
+- `ui/`: The Qt-based user interface, including all windows, widgets, and charts.
+- `tests/`: Unit and integration tests for all modules.
+- `docs/`: Detailed documentation for each module.
+
+For a comprehensive overview of the architecture and modules, see the [**Modules Overview**](./docs/modules/README.md).
+
+## Build Instructions
+
+### Prerequisites
+
+- C++20 compatible compiler (GCC, Clang, MSVC)
+- CMake 4.2+
+- Qt 6.x (Core, Gui, Widgets, Test)
+
+### Configuration
+
+If Qt is not in a standard location, set the `Qt6_ROOT` environment variable:
 
 ```bash
-export Qt6_ROOT=/path/to/Qt/6.11.1/gcc_64
+export Qt6_ROOT=/path/to/Qt/6.x.x/gcc_64
 ```
 
-Then configure and build:
+### Build Steps
+
+1. **Configure CMake:**
+
+    ```bash
+    cmake -S . -B build -G Ninja
+    ```
+
+2. **Build the Project:**
+
+    ```bash
+    cmake --build build -j 4
+    ```
+
+## Usage
+
+### Run the Application
+
+Execute the following command from the project root:
 
 ```bash
-cmake -S . -B cmake-build-debug -G Ninja
-cmake --build cmake-build-debug -j 4
+./build/Algorithmic_Trading_Backtester
 ```
 
-You can also pass it directly to CMake:
+Or, use the provided CMake target:
 
 ```bash
-cmake -S . -B cmake-build-debug -G Ninja -DQt6_ROOT=/path/to/Qt/6.11.1/gcc_64
+cmake --build build --target run
 ```
 
-## Run tests
+### Run Tests
+
+To run the full suite of unit and integration tests:
 
 ```bash
-ctest --test-dir cmake-build-debug --output-on-failure
+ctest --test-dir build --output-on-failure
 ```
 
-## Run the app
+Or, use the provided CMake target:
 
 ```bash
-./cmake-build-debug/Algorithmic_Trading_Backtester
+cmake --build build --target run_tests
 ```
-## Documentation
-[Architecture Plan](./docs/plan/ARCHITECTUREPLAN.md)
-

@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.16)
+project(AlgorithmicTradingBacktesterStructureTest LANGUAGES CXX)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find Qt6 packages
+find_package(Qt6 COMPONENTS Core Widgets REQUIRED)
+
+# Include directories
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+# Create a simple test executable to verify structure
+add_executable(structure_test
+    src/main.cpp
+    src/data/cache/DataCache.h
+)
+
+target_link_libraries(structure_test
+    PRIVATE
+        Qt6::Core
+        Qt6::Widgets
+)
+
+# Test that we can compile
+add_test(NAME StructureCheck COMMAND structure_test )
