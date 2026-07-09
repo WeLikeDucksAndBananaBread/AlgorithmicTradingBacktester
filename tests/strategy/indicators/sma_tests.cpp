@@ -17,4 +17,4 @@ void SMATests::cleanupTestCase() {}
 void SMATests::testCalculation() { QVERIFY(true); }
 
 QTEST_MAIN(SMATests)
-#include "SMATests.moc"
+#include "sma_tests.moc"

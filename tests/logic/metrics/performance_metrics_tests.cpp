@@ -17,4 +17,4 @@ void PerformanceMetricsTests::cleanupTestCase() {}
 void PerformanceMetricsTests::testInitialState() { QVERIFY(true); }
 
 QTEST_MAIN(PerformanceMetricsTests)
-#include "PerformanceMetricsTests.moc"
+#include "performance_metrics_tests.moc"

@@ -1,7 +1,7 @@
 #include <QObject>
 #include <QtTest/QtTest>
 
-#include "data/cache/DataCache.h"
+#include "data/cache/data_cache.h"
 
 using backtester::data::DataCache;
 
@@ -24,4 +24,4 @@ void DataCacheTests::testCache() {
 }
 
 QTEST_MAIN(DataCacheTests)
-#include "DataCacheTests.moc"
+#include "data_cache_tests.moc"

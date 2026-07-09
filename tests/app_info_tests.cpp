@@ -1,7 +1,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "core/AppInfo.h"
+#include "core/app_info.h"
 
 auto main() -> int {
     assert(app::applicationName() == QStringLiteral("Algorithmic Trading Backtester"));

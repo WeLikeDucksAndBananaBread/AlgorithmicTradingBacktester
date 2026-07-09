@@ -18,7 +18,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Test)
 
 # Core library
 add_library(backtester_core
-        src/core/AppInfo.cpp
+        src/core/app_info.cpp
 )
 
 target_include_directories(backtester_core
@@ -32,7 +32,7 @@ target_link_libraries(backtester_core
 
 # Data Acquisition Library
 add_library(backtester_data
-        src/data/cache/DataCache.h
+        src/data/cache/data_cache.h
         src/data/parsers/csv_parser.cpp
         src/data/parsers/json_parser.cpp
         src/data/cache/data_cache.cpp
@@ -133,35 +133,35 @@ if(BUILD_TESTING)
   enable_testing()
 
   # Core tests
-  add_executable(AppInfoTests tests/AppInfoTests.cpp)
+  add_executable(AppInfoTests tests/app_info_tests.cpp)
   target_link_libraries(AppInfoTests PRIVATE backtester_core Qt6::Test)
   add_test(NAME AppInfoTests COMMAND AppInfoTests)
 
   # Data tests
-  add_executable(DataCacheTests tests/data/DataCacheTests.cpp)
+  add_executable(DataCacheTests tests/data/data_cache_tests.cpp)
   target_link_libraries(DataCacheTests PRIVATE backtester_data Qt6::Test Qt6::Core)
   add_test(NAME DataCacheTests COMMAND DataCacheTests)
 
-  add_executable(CSVParserTests tests/data/parsers/CSVParserTests.cpp)
+  add_executable(CSVParserTests tests/data/parsers/csv_parser_tests.cpp)
   target_link_libraries(CSVParserTests PRIVATE backtester_data Qt6::Test Qt6::Core)
   add_test(NAME CSVParserTests COMMAND CSVParserTests)
 
 
-  add_executable(PerformanceMetricsTests tests/logic/metrics/PerformanceMetricsTests.cpp)
+  add_executable(PerformanceMetricsTests tests/logic/metrics/performance_metrics_tests.cpp)
   target_link_libraries(PerformanceMetricsTests PRIVATE backtester_logic Qt6::Test Qt6::Core)
   add_test(NAME PerformanceMetricsTests COMMAND PerformanceMetricsTests)
 
   # Strategy tests
-  add_executable(RuleParserTests tests/strategy/parser/RuleParserTests.cpp)
+  add_executable(RuleParserTests tests/strategy/parser/rule_parser_tests.cpp)
   target_link_libraries(RuleParserTests PRIVATE backtester_strategy Qt6::Test Qt6::Core)
   add_test(NAME RuleParserTests COMMAND RuleParserTests)
 
-  add_executable(SMATests tests/strategy/indicators/SMATests.cpp)
+  add_executable(SMATests tests/strategy/indicators/sma_tests.cpp)
   target_link_libraries(SMATests PRIVATE backtester_strategy Qt6::Test Qt6::Core)
   add_test(NAME SMATests COMMAND SMATests)
 
   # UI tests
-  add_executable(StrategyBuilderWidgetTests tests/ui/StrategyBuilderWidgetTests.cpp)
+  add_executable(StrategyBuilderWidgetTests tests/ui/strategy_builder_widget_tests.cpp)
   target_link_libraries(StrategyBuilderWidgetTests PRIVATE backtester_ui Qt6::Test Qt6::Widgets)
   add_test(NAME StrategyBuilderWidgetTests COMMAND StrategyBuilderWidgetTests)
 

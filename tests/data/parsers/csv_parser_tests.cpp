@@ -24,4 +24,4 @@ void CSVParserTests::testParse() {
 }
 
 QTEST_MAIN(CSVParserTests)
-#include "CSVParserTests.moc"
+#include "csv_parser_tests.moc"

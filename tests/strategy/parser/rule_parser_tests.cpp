@@ -17,4 +17,4 @@ void RuleParserTests::cleanupTestCase() {}
 void RuleParserTests::testParse() { QVERIFY(true); }
 
 QTEST_MAIN(RuleParserTests)
-#include "RuleParserTests.moc"
+#include "rule_parser_tests.moc"

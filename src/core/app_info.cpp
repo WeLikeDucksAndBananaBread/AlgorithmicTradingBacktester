@@ -1,4 +1,4 @@
-#include "core/AppInfo.h"
+#include "core/app_info.h"
 
 namespace app {
 

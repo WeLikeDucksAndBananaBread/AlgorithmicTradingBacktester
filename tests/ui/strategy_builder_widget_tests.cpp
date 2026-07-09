@@ -18,4 +18,4 @@ void StrategyBuilderWidgetTests::cleanupTestCase() {}
 void StrategyBuilderWidgetTests::testUI() { QVERIFY(true); }
 
 QTEST_MAIN(StrategyBuilderWidgetTests)
-#include "StrategyBuilderWidgetTests.moc"
+#include "strategy_builder_widget_tests.moc"

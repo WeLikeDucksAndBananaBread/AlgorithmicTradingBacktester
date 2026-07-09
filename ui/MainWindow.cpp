@@ -5,7 +5,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "core/AppInfo.h"
+#include "core/app_info.h"
 
 namespace {
 constexpr int kButtonMinWidth = 200;
