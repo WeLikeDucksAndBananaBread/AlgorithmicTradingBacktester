@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.2)
+cmake_minimum_required(VERSION 4.1)
 project(Algorithmic_Trading_Backtester)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
