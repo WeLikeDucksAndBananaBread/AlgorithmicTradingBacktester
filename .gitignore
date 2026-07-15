@@ -76,3 +76,22 @@ compile_commands.json
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+
+# Visual Studio internal folder
+.vs/
+
+# CMake and Visual Studio local databases / cache
+CMake Overview
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
+# User-specific CMake and VS settings
+CMakeUserPresets.json
+launch.vs.json
+ProjectSettings.json
+VSWorkspaceState.json
+
+# Standard CMake output directory
+out/
