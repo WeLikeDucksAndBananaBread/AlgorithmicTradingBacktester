@@ -5,12 +5,17 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add Linter
 set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
+if(MSVC)
+  add_compile_options(/Zc:__cplusplus /permissive- /utf-8)
+  add_compile_definitions(NOMINMAX)
+endif ()
 
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(Qt6_ROOT "$ENV{Qt6_ROOT}" CACHE PATH "Qt6 installation root (for example, /opt/Qt/6.11.1/gcc_64)")
 
@@ -120,6 +125,7 @@ add_executable(Algorithmic_Trading_Backtester
 target_link_libraries(Algorithmic_Trading_Backtester
         PRIVATE
         backtester_ui
+        Qt6::Widgets
 )
 
 add_custom_target(run
@@ -155,6 +161,7 @@ if(BUILD_TESTING)
   add_executable(RuleParserTests tests/strategy/parser/rule_parser_tests.cpp)
   target_link_libraries(RuleParserTests PRIVATE backtester_strategy Qt6::Test Qt6::Core)
   add_test(NAME RuleParserTests COMMAND RuleParserTests)
+
 
   add_executable(SMATests tests/strategy/indicators/sma_tests.cpp)
   target_link_libraries(SMATests PRIVATE backtester_strategy Qt6::Test Qt6::Core)

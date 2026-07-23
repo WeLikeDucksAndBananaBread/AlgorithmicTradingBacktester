@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Algorithmic Trading Backtester.iml" filepath="$PROJECT_DIR$/.idea/Algorithmic Trading Backtester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/AlgorithmicTradingBacktester.iml" filepath="$PROJECT_DIR$/.idea/AlgorithmicTradingBacktester.iml" />
     </modules>
   </component>
 </project>
