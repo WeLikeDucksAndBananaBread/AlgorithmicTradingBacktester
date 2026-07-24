@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Algorithmic_Trading_Backtester" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Algorithmic_Trading_Backtester" TARGET_NAME="Algorithmic_Trading_Backtester" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Algorithmic_Trading_Backtester" RUN_TARGET_NAME="Algorithmic_Trading_Backtester">
-    <method v="2">
-      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-    </method>
-  </configuration>
-</component>
