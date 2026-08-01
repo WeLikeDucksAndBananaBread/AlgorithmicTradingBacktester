@@ -135,8 +135,8 @@ QtConcurrent and QFutureWatcher's greatest advantage is thread safety.All backgr
 Small tasks do not require a new thread.Use a macimum of 3 threads,for Engine,for Data and UI.
 What counts as a small task depends on input data and time complexity (upper limit $\mathcal{O}(\log n)$ )
 Thread Limits: Rely on `QThreadPool::globalInstance()->setMaxThreadCount(int maxThreadCount)`
-## 4 Implementation Plan
-
+## 4 Implementation Plan Example
+MainWinow slot button clicked -> DataThreadHandler's method (example FileReading) -> DataThreadHandler call example DataCache's method -> when DatCache finish ,DataThreadHandler's emit signal -> MainWindow refreshes the UI to the signal
 ## 5 Testing
 
 
