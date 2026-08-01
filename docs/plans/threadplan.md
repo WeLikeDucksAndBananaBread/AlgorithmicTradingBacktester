@@ -13,43 +13,47 @@ target_link_libraries(Project_Name
         Qt6::Concurrent
 )
 ```
-### 1.2 Include QtConccurent,QFuture and QThread in the main class
+### 1.2 Include QtConcurrent,QFuture and QThread in the main class
 ```cpp
 #include <QtConcurrent>
 #include <QFuture>
 #include <QThread>
 #include <QFutureWatcher>
 ```
-1.3 Overview of QtConccurent
--The system does not manually create QThread,instead it uses Qt's Global Thread Pool to efficiently reuse threads.
--All long-running or blocking method and function are offloaded to QtConccurent threas,provide accessible GUI experience.
--Communication between threads is thread-safe,utilizing pass-by-value and QFutureWatcher signals.
+### 1.3 Overview of QtConcurrent
+- The system does not manually create QThread,instead it uses Qt's Global Thread Pool to efficiently reuse threads.
+- All long-running or blocking method and function are offloaded to QtConcurrent threas,provide accessible GUI experience.
+- Communication between threads is thread-safe,utilizing pass-by-value and QFutureWatcher signals.
 
 ## 2.Global signal-slots with QFutureWatcher
-### 2.1 Defining a composition for separate of the project.Create a owner object for each part.
+### 2.1 Defining a composition for separate of the concerns.Create a owner object for each part.
 ```cpp
-#ifndef DATA_H
-#define DATA_H
+#ifndef DATATHREADHANDLER_H
+#define DATATHREADHANDLER_H
 
 #include <QObject>
 
-class Data : public QObject
+class DataThreadHandler : public QObject
 {
+    public:
+        DataCache d;
     ...
 };
-#endif // DATA_H
+#endif // DATATHREADHANDLER_H
 ```
 ```cpp
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef ENGINETHREADHANDLER_H
+#define ENGINETHREADHANDLER_H
 
 #include <QObject>
 
-class Engine : public QObject
+class EngineThreadHandler : public QObject
 {
+    public:
+        PerformanceMetrics e; 
     ...
 };
-#endif // ENGINE_H
+#endif // ENGINETHREADHANDLER_H
 ```
 Composing owner objects into the main class.("Main class can be the MainWindow or create another main class and use it to aggregate the owner objects")
 ```cpp
@@ -57,8 +61,8 @@ Composing owner objects into the main class.("Main class can be the MainWindow o
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "data.h"
-#include "engine.h"
+#include "dataThreadHandler.h"
+#include "engineThreadHandler.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -73,8 +77,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
     //Allocate the host objects on the heap
-    Data *d; 
-    Engine *e;
+    DataThreadHandler *d; 
+    EngineThreadHandler *e;
     ...
 };
 #endif // MAINWINDOW_H
@@ -87,51 +91,55 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    d = new Data();
-    e = new Engine();
-    QObject::connect(d,&Data::finish,this,&MainWindow::finish_data); //finish is a signal and finish_data is a slot
+    d = new DataThreadHandler();
+    e = new EngineThreadHandler();
+    QObject::connect(d,&DataThreadHandler::finish,this,&MainWindow::ui_refresh); //finish is a signal and finish_data is a slot
     ...
 }
 ```
 Owner object's slots call class methods and can emit signal when finished.It can signal the UI to refesh or owner objects(not explicit).
 (This exmaple defined in the MainWindow,tha's why the _this_ keyword)
 ```cpp
-QObject::connect(d,&Data::finish,this,&MainWindow::finish_data);
+QObject::connect(d,&DataThreadHandler::finish,this,&MainWindow::ui_refresh);
 ```
 ### 2.3 Connection type
 Connection type most of ```Qt::AutoConnection``` (or explicit ```Qt::QueuedConnection```)
 ```cpp
-QObject::connect(d,&Data::finish,this,&MainWindow::finish_data,Qt::QueuedConnection); //Automatically Qt::AutoConnection 
+QObject::connect(d,&DataThreadHandler::finish,this,&MainWindow::ui_refresh,Qt::QueuedConnection); //Automatically Qt::AutoConnection 
 ```
-### 2.4 Conccurent with QFuturewatcher
+### 2.4 Concurrent with QFutureWatcher
 That's why there isn't direct connection between two owner objects.Because we want to run difficult and timeconsuming taks on background thread.(it could be done using objects moved to athor thread).From the examples above (MainWindow::finish_data)
 ```cpp
 void MainWindow::finish_data(){
-    auto watcher = new QFutureWatcher<void>(this);
-    connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
+    auto watcher = new QFutureWatcher<MyResult>(this);
+    connect(watcher, &QFutureWatcher<MyResult>::finished, this, [this, watcher]() {
         ui->label->setText("Finish the background work"); //if (QFuture) future finish
         watcher->deleteLater();
     });
-    QFuture<void> future = QtConcurrent::run([this]() {
+    QFuture<MyResult> future = QtConcurrent::run([this]() {
         e->doHeavyComputation(d);
     });
     watcher->setFuture(future); //Watch when finish the future
 }
 ```
 ### 2.5 Thread safety
-QtConcurrent and QFutureWtacher's greatest advantage is thread safety.All background functions **require a return statement** and **pass everything as a parameter**.
+QtConcurrent and QFutureWatcher's greatest advantage is thread safety.All background functions **require a return the result** and **pass everything as a parameter**.
 ### 2.6 Managing Asynchronous Tasks with QFutureWatcher
 `QFutureWatcher` provides built-in control slots and signals to monitor and manage asynchronous operations seamlessly from the GUI thread.
 #### Key Public Slots for Task Control:
-**`QFutureWatcher::setFuture()`** : Associates a `QFuture` task with the watcher to start monitoring its execution lifecycle.
-**`QFutureWatcher::pause()`** : Pauses the background task (e.g., suspends batch processing or data calculations).
-**`QFutureWatcher::resume()`** : Resumes the previously paused background task.
-**`QFutureWatcher::cancel()`** : Cancels the execution of the task (e.g., when the user switches to a different dataset or aborts the operation).
-## Performance and resource limits
+- **`QFutureWatcher::setFuture()`** : Associates a `QFuture` task with the watcher to start monitoring its execution lifecycle.
+- **`QFutureWatcher::setPaused(bool paused) / pause()`** : Requests pausing remaining items in batch/iterative operations.
+- **`QFutureWatcher::resume()`** : Resumes the previously paused background task.
+- **`QFutureWatcher::cancel()`** : Cancels the execution of the task (e.g., when the user switches to a different dataset or aborts the operation).
+## 3 Performance and resource limits
 Small tasks do not require a new thread.Use a macimum of 3 threads,for Engine,for Data and UI.
-What counts as a small task depends on input data and time complexity ($\mathcal{O}(\log n)$)
-## Testing
-- - -
-## Move Object to other thread and ThreadPool
+What counts as a small task depends on input data and time complexity (upper limit $\mathcal{O}(\log n)$ )
+Thread Limits: Rely on `QThreadPool::globalInstance()->setMaxThreadCount(int maxThreadCount)`
+## 4 Implementation Plan
+
+## 5 Testing
+
+
+## 6 Move Object to other thread and ThreadPool
 Moving an enite object to a thread,so all its methods calls automatically run on those threads.This is where the use QMutex and QMutexLocker and QRunnable ,if you call the method from another thread at the same time,it will be crash.
 
